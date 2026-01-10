@@ -11,6 +11,7 @@ What You'll Learn:
 
 Prerequisites: You should know Flask basics (routes, templates, render_template)
 """
+import random
 
 from flask import Flask, render_template
 import sqlite3  # Built-in Python library for SQLite database
@@ -59,15 +60,36 @@ def index():
     return render_template('index.html', students=students)
 
 
+# @app.route('/add')
+# def add_sample_student():
+#     """Add a sample student to database (for testing)"""
+#     conn = get_db_connection()
+#     conn.execute(
+#         'INSERT INTO students (name, email, course) VALUES (?, ?, ?)',
+#         ('John Doe', 'john@example.com', 'Python')  # ? are placeholders (safe from SQL injection)
+#     )
+#     conn.commit()  # Don't forget to commit!
+#     conn.close()
+#     return 'Student added! <a href="/">Go back to home</a>'
+
+
 @app.route('/add')
 def add_sample_student():
-    """Add a sample student to database (for testing)"""
+    students = [
+        ('Ayaan Ali', 'ayaan@gmail.com', 'Python'),
+        ('Sara Khan', 'sara@gmail.com', 'Flask'),
+        ('Rohit Sharma', 'rohit@gmail.com', 'Data Science'),
+        ('Neha Patel', 'neha@gmail.com', 'Web Development')
+    ]
+
+    student = random.choice(students)
+
     conn = get_db_connection()
     conn.execute(
         'INSERT INTO students (name, email, course) VALUES (?, ?, ?)',
-        ('John Doe', 'john@example.com', 'Python')  # ? are placeholders (safe from SQL injection)
+        student
     )
-    conn.commit()  # Don't forget to commit!
+    conn.commit()
     conn.close()
     return 'Student added! <a href="/">Go back to home</a>'
 

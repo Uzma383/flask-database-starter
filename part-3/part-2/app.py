@@ -46,7 +46,25 @@ def init_db():
 # CREATE - Add new student
 # =============================================================================
 
+# @app.route('/add', methods=['GET', 'POST'])  # Allow both GET and POST
+# def add_student():
+#     if request.method == 'POST':  # Form was submitted
+#         name = request.form['name']  # Get data from form field named 'name'
+#         email = request.form['email']
+#         course = request.form['course']
 
+#         conn = get_db_connection()
+#         conn.execute(
+#             'INSERT INTO students (name, email, course) VALUES (?, ?, ?)',
+#             (name, email, course)
+#         )
+#         conn.commit()
+#         conn.close()
+
+#         flash('Student added successfully!', 'success')  # Show success message
+#         return redirect(url_for('index'))  # Go back to home page
+
+#     return render_template('add.html')  # GET request: show empty form
 
 @app.route('/add', methods=['GET', 'POST'])
 def add_student():
@@ -57,7 +75,7 @@ def add_student():
 
         conn = get_db_connection()
 
-        
+        # 🔍 Check if email already exists
         existing = conn.execute(
             'SELECT * FROM students WHERE email = ?',
             (email,)
@@ -68,7 +86,7 @@ def add_student():
             flash('Email already exists! Please use a different email.', 'danger')
             return redirect(url_for('add_student'))
 
-       
+        # ✅ Insert if email not found
         conn.execute(
             'INSERT INTO students (name, email, course) VALUES (?, ?, ?)',
             (name, email, course)
@@ -87,7 +105,12 @@ def add_student():
 # READ - Display all students
 # =============================================================================
 
-
+# @app.route('/')
+# def index():
+#     conn = get_db_connection()
+#     students = conn.execute('SELECT * FROM students ORDER BY id DESC').fetchall()  # Newest first
+#     conn.close()
+#     return render_template('index.html', students=students)
 
 @app.route('/')
 def index():

@@ -105,42 +105,6 @@
         <p class="empty">No students yet. Add one!</p>
     {% endif %}
 
-
-    {% if teachers %}
-    <h2>Teachers</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Course</th>
-            <th>Actions</th>
-        </tr>
-        {% for teacher in teachers %}
-        <tr>
-            <td>{{ teacher.id }}</td>
-            <td>{{ teacher.name }}</td>
-            <td>{{ teacher.email }}</td>
-            <td>
-                {% if teacher.course %}
-                    <span class="course-badge">{{ teacher.course.name }}</span>
-                {% else %}
-                    <span class="empty">No course assigned</span>
-                {% endif %}
-            </td>
-            <td>
-                <a href="{{ url_for('edit_teacher', id=teacher.id) }}" class="btn btn-edit">Edit</a>
-                <a href="{{ url_for('delete_teacher', id=teacher.id) }}" class="btn btn-delete"
-                   onclick="return confirm('Delete this teacher?')">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-{% else %}
-    <p class="empty">No teachers yet. Add one!</p>
-{% endif %}
-
-
     <hr>
     <p><strong>Notice:</strong> We use <code>student.course.name</code> to access the related course - that's the power of ORM relationships!</p>
 </body>

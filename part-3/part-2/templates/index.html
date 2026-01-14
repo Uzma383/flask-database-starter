@@ -22,19 +22,7 @@
     </style>
 </head>
 <body>
-    <h1>Student Management SYSTEM (Part 2 - Full CRUD)</h1>
-
-    <form method="GET" action="{{ url_for('index') }}" style="margin-top:15px;">
-    <input type="text" name="search"
-           placeholder="Search by name..."
-           value="{{ search if search else '' }}"
-           style="padding:8px; width:220px;">
-
-    <button type="submit" class="btn btn-search">🔍 Search</button>
-
-
-    <a href="{{ url_for('index') }}" class="btn btn-cancel">Reset</a>
-</form>
+    <h1>Student Management (Part 2 - Full CRUD)</h1>
 
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -74,7 +62,17 @@
         <p class="empty">No students yet. Click "Add New Student" to create one!</p>
     {% endif %}
 
-    
+    <form method="GET" action="{{ url_for('index') }}" style="margin-top:15px;">
+    <input type="text" name="search"
+           placeholder="Search by name..."
+           value="{{ search if search else '' }}"
+           style="padding:8px; width:220px;">
+
+    <button type="submit" class="btn btn-search">🔍 Search</button>
+
+
+    <a href="{{ url_for('index') }}" class="btn btn-cancel">Reset</a>
+</form>
 
     <hr>
     <p><strong>CRUD Operations:</strong> Create (Add) | Read (List) | Update (Edit) | Delete</p>

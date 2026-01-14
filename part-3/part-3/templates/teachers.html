@@ -68,14 +68,14 @@
             <h3>{{ teacher.name }}</h3>
             <p><strong>Email:</strong> {{ teacher.email }}</p>
 
-            <!-- <p><strong>Courses Taught:</strong></p>
+            <p><strong>Courses Taught:</strong></p>
             {% if teacher.courses %}
                 {% for course in teacher.courses %}
                     <span class="course-badge">{{ course.name }}</span>
                 {% endfor %}
             {% else %}
                 <p class="empty">No courses assigned</p>
-            {% endif %} -->
+            {% endif %}
         </div>
         {% endfor %}
     {% else %}

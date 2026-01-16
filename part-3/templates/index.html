@@ -56,10 +56,7 @@
         <a href="{{ url_for('index') }}">Students</a>
         <a href="{{ url_for('courses') }}">Courses</a>
         <a href="{{ url_for('teachers') }}">Teachers</a>
-        <a href="{{ url_for('add_student') }}">Add Student</a>
-        <a href="{{ url_for('add_course') }}">Add Course</a>
-        <a href="{{ url_for('add_teacher') }}">Add Teacher</a>
-        <a href="{{ url_for('top_students') }}">Top Students</a>
+        <br>
 
         <!-- Search Bar -->
         <form action="{{ url_for('search_students') }}" method="get">
@@ -79,6 +76,7 @@
     <a href="{{ url_for('add_student') }}" class="btn btn-add">+ Add New Student</a>
 
     {% if students %}
+    <h2>Students Info</h2>
         <table>
             <tr>
                 <th>ID</th>
@@ -107,13 +105,13 @@
 
 
     {% if teachers %}
-    <h2>Teachers</h2>
+    <h2>Teachers Info</h2>
     <table>
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Course</th>
+            <th>Courses</th>
             <th>Actions</th>
         </tr>
         {% for teacher in teachers %}
@@ -122,10 +120,12 @@
             <td>{{ teacher.name }}</td>
             <td>{{ teacher.email }}</td>
             <td>
-                {% if teacher.course %}
-                    <span class="course-badge">{{ teacher.course.name }}</span>
+                {% if teacher.courses %}
+                    {% for course in teacher.courses %}
+                        <span class="course-badge">{{ course.name }}</span>
+                    {% endfor %}
                 {% else %}
-                    <span class="empty">No course assigned</span>
+                    <span class="empty">No courses</span>
                 {% endif %}
             </td>
             <td>

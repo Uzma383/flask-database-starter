@@ -444,4 +444,52 @@ def init_db():
 
 if __name__ == '__main__':
     init_db()
+<<<<<<< HEAD
     app.run(debug=True)
+=======
+    app.run(debug=True)
+
+
+# =============================================================================
+# ORM vs RAW SQL COMPARISON:
+# =============================================================================
+#
+# Operation      | Raw SQL                          | SQLAlchemy ORM
+# ---------------|----------------------------------|---------------------------
+# Get all        | SELECT * FROM students           | Student.query.all()
+# Get by ID      | SELECT * WHERE id = ?            | Student.query.get(id)
+# Filter         | SELECT * WHERE name = ?          | Student.query.filter_by(name='John')
+# Insert         | INSERT INTO students VALUES...   | db.session.add(student)
+# Update         | UPDATE students SET...           | student.name = 'New'; db.session.commit()
+# Delete         | DELETE FROM students WHERE...    | db.session.delete(student)
+#
+# =============================================================================
+# COMMON QUERY METHODS:
+# =============================================================================
+#
+# Student.query.all()                    - Get all records
+# Student.query.first()                  - Get first record
+# Student.query.get(1)                   - Get by primary key
+# Student.query.get_or_404(1)            - Get or show 404 error
+# Student.query.filter_by(name='John')   - Filter by exact value
+# Student.query.filter(Student.name.like('%john%'))  - Filter with LIKE
+# Student.query.order_by(Student.name)   - Order results
+# Student.query.count()                  - Count records
+#
+# =============================================================================
+
+
+# =============================================================================
+# EXERCISE:
+# =============================================================================
+#
+# 1. Add a `Teacher` model with a relationship to Course 
+# (have one Course can be taught by many Teachers and one Teacher can only teach only one Course)
+# In other words, create new Teacher model exactly like Student with all others things same 
+# (relationship between the two, frontend page for teacher list, add new teacher, backend routes for add new teacher, edit teacher, delete teacher)
+# Additional exercise - display list of students with course name and teacher name (taken from the course name) and vice versa
+
+# 2. Try different query methods: `filter()`, `order_by()`, `limit()`
+#
+# =============================================================================
+>>>>>>> upstream/main

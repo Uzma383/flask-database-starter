@@ -830,16 +830,45 @@ def delete_author(id):
 # --------- BOOKS ---------
 @app.route('/api/books', methods=['GET'])
 def get_books():
-    books = Book.query.all()
-    result = []
-    for b in books:
-        result.append({
+    page = request.args.get('page', 1, type=int)
+    per_page = request.args.get('per_page', 10, type=int)
+    sort = request.args.get('sort', 'id')
+    order = request.args.get('order', 'asc')
+
+    query = Book.query
+
+    # sorting logic
+    if hasattr(Book, sort):
+        column = getattr(Book, sort)
+        if order == 'desc':
+            query = query.order_by(column.desc())
+        else:
+            query = query.order_by(column.asc())
+
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+
+    books = []
+    for b in pagination.items:
+        books.append({
             "id": b.id,
             "title": b.title,
             "year": b.year,
-            "author": {"id": b.author.id, "name": b.author.name} if b.author else None
+            "author": {
+                "id": b.author.id,
+                "name": b.author.name
+            } if b.author else None
         })
-    return jsonify(result), 200
+
+    return jsonify({
+        "page": page,
+        "per_page": per_page,
+        "total_books": pagination.total,
+        "total_pages": pagination.pages,
+        "sort": sort,
+        "order": order,
+        "books": books
+    }), 200
+
 
 @app.route('/api/books/<int:id>', methods=['GET'])
 def get_book(id):

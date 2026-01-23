@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+<h1>Add New Product</h1>
+
+<form method="POST">
+    <label>Product Name</label>
+    <input type="text" name="name" required>
+
+    <label>Quantity</label>
+    <input type="number" name="quantity" required>
+
+    <label>Price (₹)</label>
+    <input type="number" step="0.01" name="price" required>
+
+    <button type="submit" class="btn">Save Product</button>
+    <a href="/" class="btn" style="background:#7f8c8d;">Cancel</a>
+</form>
+{% endblock %}
